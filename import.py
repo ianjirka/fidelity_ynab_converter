@@ -3,7 +3,8 @@ import glob
 import pandas as pd
 
 #Find the most recent file in the Downloads folder
-downloads_path = 'C:/Users/your_name_here/Downloads/'
+user_profile_path = os.getenv('USERPROFILE')
+downloads_path = user_profile_path + '/Downloads/'
 search_str = "History_for_Account_*.csv" 
 search_path = os.path.join(downloads_path, search_str)
 
@@ -40,6 +41,7 @@ df_ynab['Amount'] = df['Amount ($)']
 df_ynab['Description'] = df['Action']
 
 # Write the DataFrame to a new CSV file
-output_file = "C:/Users/your_name_here/Downloads/YNAB_Import.csv"
+output_file = user_profile_path + "/Downloads/YNAB_Import.csv"
 df_ynab.to_csv(output_file, index=False)
 print(f"Formatted CSV saved as {output_file}")
+os.remove(most_recent_file)
