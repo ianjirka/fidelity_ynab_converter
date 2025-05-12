@@ -41,7 +41,16 @@ df_ynab['Amount'] = df['Amount ($)']
 df_ynab['Description'] = df['Action']
 
 # Write the DataFrame to a new CSV file
-output_file = user_profile_path + "/Downloads/YNAB_Import.csv"
+output_file = downloads_path + "YNAB_Import.csv"
 df_ynab.to_csv(output_file, index=False)
 print(f"Formatted CSV saved as {output_file}")
 os.remove(most_recent_file)
+
+# Delete all .qxf files in the Downloads directory
+qxf_files = glob.glob(os.path.join(downloads_path, '*.qfx'))
+if not qxf_files:
+    print("No .qxf files found.")
+else:
+    for qxf_file in qxf_files:
+        os.remove(qxf_file)
+        print(f"Deleted file: {qxf_file}")
